@@ -1,0 +1,100 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="panel">
+	<div class="inner">
+		<span class="corners-top"><span></span></span>
+
+		<div class="navbar">
+			<span class="corners-top"><span></span></span>
+			<h2>{L_PRESSNOTE_REQUEST_TITLE}</h2>
+			{L_PRESSNOTE_REQUEST_EXPLAIN}
+			<span class="corners-bottom"><span></span></span>
+		</div>
+		<br />
+		<div class="content" style='margin-top:20px'>
+			<form id="ucp" name="ucp" method="post" action="">
+				<input type="hidden" name="image" id="image" value="{IMAGE}">
+				
+				<div class="panel">
+					<div class="inner">
+						<span class="corners-top"><span></span></span>
+						{DEBUG}
+						<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+
+						<fieldset>
+						
+							<dl>
+								<dt><label for="title">{L_PRESSNOTE_TITLE}:</label></dt>
+								<dd>
+									<input type="text" name="title" id="title" size="50" maxlength="100" value="{TITLE}" class="inputbox" />
+									<br />{L_PRESSNOTE_TITLE_EXPLAIN}
+								</dd>
+							</dl>
+							
+							<dl>
+								<dt><label for="location_country_id">{L_PRESSNOTE_COUNTRY}:</label></dt>
+								<dd>
+									<select name="country_id" id="location_country_id">{S_COUNTRY}</select>
+									<br />{L_PRESSNOTE_COUNTRY_EXPLAIN}
+								</dd>
+							</dl>
+							
+							<dl>
+								<dt><label for="date_end">{L_PRESSNOTE_DATE}:</label></dt>
+								<dd>
+									<input type="text" name="date_end" id="date_end" size="10" maxlength="10" value="{DATE}" class="inputbox autowidth" />{U_DATE}
+									<br />{L_PRESSNOTE_DATE_EXPLAIN}
+								</dd>
+							</dl>
+							
+							
+							<dl>
+								<dt><label for="description">{L_PRESSNOTE_DESCRIPTION}:</label></dt><br /><br />
+									<textarea name="description" id="description" class="inputbox" cols="40" rows="7">{DESCRIPTION}</textarea>
+									<br />{L_PRESSNOTE_DESCRIPTION_EXPLAIN}
+							</dl>
+							<br />
+							
+							<dl>
+								<dt><label for="title">{L_PRESSNOTE_EMISSOR}:</label></dt>
+								<dd>
+									<input type="text" name="emissor" id="emissor" size="50" maxlength="100" value="{EMISSOR}" class="inputbox" />
+									<br />{L_PRESSNOTE_EMISSOR_EXPLAIN}
+								</dd>
+							</dl>
+							
+							<dl>
+								<dt><label for="title">{L_PRESSNOTE_URL}:</label></dt>
+								<dd>
+									<input type="text" name="url" id="url" size="50" maxlength="100" value="{URL}" class="inputbox" />
+									<br />{L_PRESSNOTE_URL_EXPLAIN}
+								</dd>
+							</dl>
+							
+							<dl>
+								<dt><label for="category_id">{L_PRESSNOTE_CATEGORY}:</label></dt>
+								<dd>
+									<select name="category" id="category_id">{S_CATEGORY_OPTIONS}</select>
+									<br />{L_PRESSNOTE_CATEGORY_EXPLAIN}
+								</dd>
+							</dl>
+							<br />
+						</fieldset>
+
+						<span class="corners-bottom"><span></span></span></div>
+				</div>
+
+				<fieldset class="submit-buttons">
+					<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp; 
+					<input type="submit" name="submit" id="submit" value="{L_SUBMIT}" class="button1" />
+				</fieldset>
+			</form>
+
+			<p style="font-size:1.6em"><a href="{GO_PRESSNOTES}" title="{L_GO_PRESSNOTES}">{L_GO_PRESSNOTES}</a></p>
+
+			<span class="corners-bottom"><span></span></span>
+		</div>
+	</div>
+</div>
+<br />
+<!-- INCLUDE overall_footer.html -->

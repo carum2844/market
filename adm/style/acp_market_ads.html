@@ -1,0 +1,81 @@
+<!-- INCLUDE overall_header.html -->
+<!-- INCLUDEJS js/market_acp_ads.js -->
+<h1>{L_SETTINGS}</h1>
+{DEBUG}
+<form id="ads_list" method="post" action="{U_ACTION}">
+
+	<fieldset class="quick">
+		<input class="button2" name="add" type="submit" value="{L_AD_ADD}" />
+	</fieldset>
+	 
+		<fieldset>
+        <input type="hidden" id="start" name="start" value="{START}" />
+        <input type="hidden" id="action" name="action" value="{ACTION}" />
+    	<dl>
+        	<dt style="border-right-style:none;text-align:right;"><label for="member">{L_ACP_ADS_SEARCH_USER}:</label></dt>
+        	<dd><select name="ads_member" id="ads_member">{S_ADS_MEMBER}</select></dd>
+        </dl>
+        <hr />
+		<div style="text-align:right; padding-bottom: 5px;"><span style="font-size:.85em;">&bull; {TOTAL_ADS}</span>
+			<ul class="pagination" style="display:inline;">
+				<!-- IF .pagination -->
+					<!-- INCLUDE pagination.html -->
+				<!-- ENDIF -->
+			</ul>
+		</div>
+		<table cellspacing="1" id="down">
+			<thead>
+				<tr>
+					<th><input type="checkbox" name="selectall" id="selectall" /></th>
+					<th>{L_ACP_AD_ID}</th>
+					<th>{L_ACP_AD_USER}</th>
+					<th>{L_ACP_AD_STATE}</th>
+					<th>{L_ACP_AD_ITEM_NAME}</th>
+					<th>{L_ACP_AD_REGDATE}</th>
+					<th>{L_ACP_AD_ACTIVE}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN ads -->
+					<tr<!-- IF ads.S_ROW_COUNT is even --> class="row1"<!-- ELSE --> class="row2"<!-- ENDIF --> onclick="JavaScript:window.location.assign('{ads.AD_EDIT}')">
+						<td style="text-align:center;">
+								<input type="checkbox" name="ads_id_list[]}" value="{ads.AD_ID}" class="ads_id_list" />
+						</td>
+						<td>{ads.AD_ID}</td>
+						<td>{ads.AD_USER}</td>
+						<td>{ads.AD_STATE}</td>
+						<td>{ads.AD_ITEM_NAME}</td>
+						<td>{ads.AD_REGDATE}</td>
+						<td>{ads.AD_ACTIVE}</td>
+					</tr>
+				<!-- END ads -->
+			</tbody>
+        </table>
+		<div style="text-align:right;"><span style="font-size:.85em;">&bull; {TOTAL_ADS}</span>
+			<ul class="pagination" style="display:inline;">
+				<!-- IF .pagination -->
+					<!-- INCLUDE pagination.html -->
+				<!-- ENDIF -->
+			</ul>
+		</div>
+        <fieldset class="quick">
+            <p class="small"><a href="#" onclick="marklist('ads_list', 'ads_id_list', true);">{L_MARK_ALL}</a> &bull; <a href="#" onclick="marklist('ads_list', 'ads_id_list', false);">{L_UNMARK_ALL}</a></p>
+        </fieldset>
+
+	<fieldset>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+<script type="text/javascript">
+// <![CDATA[
+$(document).ready(function() {
+	alert('Ready');
+});
+// ]]>
+</script>
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,44 @@
+carum_market:
+    path: /market{tslash} 
+    defaults: { _controller: carum.market.main.controller:displaylist }
+    requirements: { tslash : "/?" }
+carum_mercado:
+    path: /mercado{tslash} 
+    defaults: { _controller: carum.market.main.controller:displaylist }
+    requirements: { tslash : "/?" }
+
+carum_market_item:
+    path: /market/displayitem/{item_id}{tslash} 
+    defaults: { _controller: carum.market.main.controller:displayitem }
+    requirements: { tslash : "/?" }
+carum_mercado_item:
+    path: /market/mostrar_ficha/{item_id}{tslash} 
+    defaults: { _controller: carum.market.main.controller:displayitem }
+    requirements: { tslash : "/?" }
+
+carum_market_add_ad:
+    path: /market/add_ad/{step}{tslash} 
+    defaults: { _controller: carum.market.main.controller:add_ad }
+    requirements: { tslash : "/?" }
+carum_mercado_add_ad:
+    path: /mercado/crear_anuncio/{step}{tslash} 
+    defaults: { _controller: carum.market.main.controller:add_ad }
+    requirements: { tslash : "/?" }
+
+carum_market_description:
+    path: /market/description/{item_id}{tslash} 
+    defaults: { _controller: carum.market.main.controller:displaydescription }
+    requirements: { tslash : "/?" }
+
+carum_market_json_list_makers:
+    path: /json_list_makers/{maker_id}
+    defaults: { _controller: carum.market.includes.php.marketfunctions:json_list_makers }
+
+carum_market_json_list_models:
+    path: /json_list_models/{maker_id}/{model_id}
+    defaults: { _controller: carum.market.includes.php.marketfunctions:json_list_models }
+
+carum_market_image:
+    path: /market/image/request{tslash} 
+    defaults: { _controller: carum.market.main.controller:requestimage }
+    requirements: { tslash : "/?" }

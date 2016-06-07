@@ -1,0 +1,438 @@
+<!-- INCLUDE overall_header.html -->
+<!-- INCLUDEJS js/market_acp_ad.js -->
+<script type="text/javascript" charset="utf-8">
+var url_call = '';
+var item_maker_id = "{AD_ITEM_MAKER_ID}";
+var item_model_id = "{AD_ITEM_MODEL_ID}";
+var not_in_the_list = "{L_NOT_IN_LIST}";
+</script>
+<h1>{L_ACP_MARKET_AD_TITLE}{L_COLON} {AD_ID}</h1>
+{DEBUG}
+<!-- IF ERROR --><br /><p class="error">{ERROR}</p><!-- ENDIF -->
+
+<form id="ad_form" method="post" action="{U_ACTION}">
+	<fieldset>
+		<legend>{L_AD_AD}</legend>
+		<input type="hidden" id="ad_id" name="ad_id" value="{AD_ID}" />
+		<input type="hidden" id="action" name="action" value="{ACTION}" />
+		<dl>
+			<dt><label for="ad_active">{L_AD_ACTIVE}{L_COLON}</label></dt>
+			<dd>
+				<select name="ad_active">
+					<option value="0" <!-- IF AD_ACTIVE == '0' -->selected="selected"<!-- ENDIF -->>{L_NO}</option>
+					<option value="1" <!-- IF AD_ACTIVE == '1' -->selected="selected"<!-- ENDIF -->>{L_YES}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_regdate">{L_AD_ITEM_REGDATE}{L_COLON}</label></dt>
+			<dd><input  type="text" name="ad_item_regdate" id="ad_item_regdate" size="8" maxlength="10" value="{AD_ITEM_REGDATE}" /><br />{L_AD_DATE_FORMAT}</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_views">{L_AD_ITEM_VIEWS}{L_COLON}</label></dt>
+			<dd><input  type="text" name="ad_item_views" id="ad_item_views" size="6" value="{AD_ITEM_VIEWS}" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_user_id">{L_AD_USER}{L_COLON}</label></dt>
+			<dd><select name='ad_user_id'>{S_USERS}</select></dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_state">{L_AD_STATE}{L_COLON}</label></dt>
+			<dd>
+				<select name='ad_state'>
+					<option value="0" <!-- IF AD_STATE == '0' -->selected="selected"<!-- ENDIF -->>{L_ACTIVE}</option>
+					<option value="1" <!-- IF AD_STATE == '1' -->selected="selected"<!-- ENDIF -->>{L_DRAFT}</option>
+					<option value="2" <!-- IF AD_STATE == '2' -->selected="selected"<!-- ENDIF -->>{L_EXPIRED}</option>
+					<option value="3" <!-- IF AD_STATE == '3' -->selected="selected"<!-- ENDIF -->>{L_DELETED}</option>
+					<option value="4" <!-- IF AD_STATE == '4' -->selected="selected"<!-- ENDIF -->>{L_RESERVED}</option>
+					<option value="5" <!-- IF AD_STATE == '5' -->selected="selected"<!-- ENDIF -->>{L_SOLD}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_action">{L_AD_ITEM_ACTION}{L_COLON}</label></dt>
+			<dd>
+				<select name='ad_item_action' id='ad_item_action'>
+					<option value="0" <!-- IF AD_ITEM_ACTION == '0' -->selected="selected"<!-- ENDIF -->>{L_SELL}</option>
+					<option value="1" <!-- IF AD_ITEM_ACTION == '1' -->selected="selected"<!-- ENDIF -->>{L_BUY}</option>
+					<option value="2" <!-- IF AD_ITEM_ACTION == '2' -->selected="selected"<!-- ENDIF -->>{L_CATALOG}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_type_item">{L_AD_TYPE_ITEM}{L_COLON}</label></dt>
+			<dd>
+				<select name='ad_type_item' id='ad_type_item'>
+					<option value="1" <!-- IF AD_TYPE_ITEM == '1' -->selected="selected"<!-- ENDIF -->>{L_MACHINE}</option>
+					<option value="2" <!-- IF AD_TYPE_ITEM == '2' -->selected="selected"<!-- ENDIF -->>{L_ARTICLE}</option>
+					<option value="3" <!-- IF AD_TYPE_ITEM == '3' -->selected="selected"<!-- ENDIF -->>{L_SERVICE}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_category_id">{L_AD_CATEGORIES}{L_COLON}</label></dt>
+			<dd><select name='ad_category_id'>{S_CATEGORIES}</select></dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_method">{L_AD_METHOD}{L_COLON}</label></dt>
+			<dd>
+				<select id="ad_method" name="ad_method">
+					<option value="0" <!-- IF AD_METHOD == '0' -->selected="selected"<!-- ENDIF -->>{L_METHOD_ASK_PRICE}</option>
+					<option value="1" <!-- IF AD_METHOD == '1' -->selected="selected"<!-- ENDIF -->>{L_METHOD_BID_OFFER}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="ad_bid">
+			<dt><label for="ad_allow_auction">{L_AD_ALLOW_AUCTION}{L_COLON}</label></dt>
+			<dd>
+				<select name="ad_allow_auction">
+					<option value="0" <!-- IF AD_ALLOW_AUCTION == '0' -->selected="selected"<!-- ENDIF -->>{L_NO}</option>
+					<option value="1" <!-- IF AD_ALLOW_AUCTION == '1' -->selected="selected"<!-- ENDIF -->>{L_YES}</option>
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<legend>{L_AD_ITEM}</legend>
+		<dl>
+			<dt><label for="ad_item_name">{L_AD_ITEM_NAME}{L_COLON}</label></dt>
+			<dd><input  type="text" name="ad_item_name" id="ad_item_name" size="60" maxlength="100" value="{AD_ITEM_NAME}" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_short_description">{L_AD_ITEM_SHORT_DESCRIPTION}{L_COLON}</label></dt>
+			<dd><input  type="text" name="ad_item_short_description" id="ad_item_short_description" size="60" maxlength="100" value="{AD_ITEM_SHORT_DESCRIPTION}" /></dd>
+		</dl>
+		<!-- 'AD_ITEM_DESCRIPTION'	=> $ad_item_description; -->
+		<dl class="ad_ask_price">
+			<dt><label for="ad_item_price">{L_AD_ITEM_PRICE}{L_COLON}</label></dt>
+			<dd>
+				<input  type="text" name="ad_item_price" id="ad_item_price" size="6" maxlength="20" value="{AD_ITEM_PRICE}" />&nbsp;&euro;
+				<input type="checkbox" name="hide_price" class="check" style="margin-left: 20px;" value="1" <!-- IF AD_ITEM_HIDE_PRICE == '1' -->checked="cheked"<!-- ENDIF --> />&nbsp;{L_AD_ITEM_HIDE_PRICE}
+			</dd>
+		</dl>
+		<dl class="ad_bid">
+			<dt><label for="ad_item_buy_now_price">{L_AD_ITEM_BUY_NOW_PRICE}{L_COLON}</label></dt>
+			<dd>
+				<input  type="text" name="ad_item_buy_now_price" id="ad_item_buy_now_price" size="6" maxlength="20" value="{AD_ITEM_BUY_NOW_PRICE}" />&nbsp;&euro;
+				<input type="checkbox" name="hide_price" class="check" style="margin-left: 20px;" value="1" <!-- IF AD_ITEM_HIDE_PRICE == '1' -->checked="cheked"<!-- ENDIF --> />&nbsp;{L_AD_ITEM_HIDE_PRICE}
+			</dd>
+		</dl>
+		<dl class="ad_bid">
+			<dt><label for="ad_item_start_price">{L_AD_ITEM_START_PRICE}{L_COLON}</label></dt>
+			<dd>
+				<input  type="text" name="ad_item_start_price" id="ad_item_start_price" size="6" maxlength="20" value="{AD_ITEM_START_PRICE}" />&nbsp;&euro;
+			</dd>
+		</dl>
+		<dl class="ad_bid">
+			<dt><label for="ad_item_min_bid_price">{L_AD_ITEM_MIN_BID_PRICE}{L_COLON}</label></dt>
+			<dd>
+				<input  type="text" name="ad_item_min_bid_price" id="ad_item_min_bid_price" size="6" maxlength="20" value="{AD_ITEM_MIN_BID_PRICE}" />&nbsp;&euro;
+				<input type="checkbox" name="ad_item_show_min_bid" class="check" style="margin-left: 20px;" value="1" <!-- IF AD_ITEM_SHOW_MIN_BID == '1' -->checked="cheked"<!-- ENDIF --> />&nbsp;{L_AD_ITEM_SHOW_MIN_BID}
+			</dd>
+		</dl>
+		<!-- 'AD_ITEM_IS_MIN_BID'	ad_item_is_min_bid -->
+		<!-- IF AD_ITEM_ACTUAL_PRICE -->
+			<dl class="ad_bid">
+				<dt><label for="ad_item_actual_price">{L_AD_ITEM_ACTUAL_PRICE}{L_COLON}</label></dt>
+				<dd>
+					{AD_ITEM_ACTUAL_PRICE}&nbsp;&euro;
+				</dd>
+			</dl>
+			<!-- AD_ITEM_DATE_ACTUAL_PRICE ad_item_date_actual_price -->
+		<!-- ENDIF -->
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_new_used">{L_AD_ITEM_NEW_USED}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_new_used" id="ad_item_new_used">
+					<option value="0" <!-- IF AD_ITEM_NEW_USED == '0' -->selected="selected"<!-- ENDIF -->>{L_SERVICE}</option>
+					<option value="1" <!-- IF AD_ITEM_NEW_USED == '1' -->selected="selected"<!-- ENDIF -->>{L_NEW}</option>
+					<option value="2" <!-- IF AD_ITEM_NEW_USED == '2' -->selected="selected"<!-- ENDIF -->>{L_USED}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_state">{L_AD_ITEM_STATE}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_state" id="ad_item_state">
+					<option value="0" <!-- IF AD_ITEM_STATE == '0' -->selected="selected"<!-- ENDIF -->>{L_NOT_DECLARED}</option>
+					<option value="1" <!-- IF AD_ITEM_STATE == '1' -->selected="selected"<!-- ENDIF -->>{L_WORKS}</option>
+					<option value="2" <!-- IF AD_ITEM_STATE == '2' -->selected="selected"<!-- ENDIF -->>{L_NEED_REPAIR}</option>
+					<option value="3" <!-- IF AD_ITEM_STATE == '3' -->selected="selected"<!-- ENDIF -->>{L_NOT_WORKING}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="machine">
+			<dt><label for="ad_item_maker_id">{L_AD_ITEM_PRODUCT_NAME}{L_COLON}</label></dt>
+			<dd>
+				{L_MARK}<br />
+				<select id="ad_item_maker_id" name="ad_item_maker_id"></select>
+				<input type="text" id="ad_item_alt_maker_name" name="ad_item_alt_maker_name" value="{AD_ITEM_ALT_MAKER_NAME}" /><br />
+				<label for="ad_item_model_id">{L_MODEL}</label><br />
+				<select id="ad_item_model_id" name="ad_item_model_id"></select>
+				<input type="text" id="ad_item_alt_model_name" name="ad_item_alt_model_name" value="{AD_ITEM_ALT_MODEL_NAME}" /><br />
+				{L_SERIAL}<br />
+				<input type="text" id="ad_item_serial" name="ad_item_serial" value="{AD_ITEM_SERIAL}" />
+			</dd>
+		</dl>
+		<dl class="service">
+			<dt><label for="ad_item_product_name">{L_AD_ITEM_PRODUCT_NAME}{L_COLON}</label></dt>
+			<dd><input type="text" id="ad_item_product_name" name="ad_item_product_name" value="{AD_ITEM_PRODUCT_NAME}" /></dd>
+		</dl>
+		<dl class="machine">
+			<dt>
+				<label for="ad_item_production_year">{L_AD_ITEM_PRODUCTION_YEAR}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_production_year" id="ad_item_production_year">
+						<option value="0"    <!-- IF AD_ITEM_PRODUCTION_YEAR == '0' -->selected="selected"<!-- ENDIF -->>{L_SELECT}</option>
+						<option value="1985" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1985' -->selected="selected"<!-- ENDIF -->>1985</option>
+						<option value="1986" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1986' -->selected="selected"<!-- ENDIF -->>1986</option>
+						<option value="1987" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1987' -->selected="selected"<!-- ENDIF -->>1987</option>
+						<option value="1988" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1988' -->selected="selected"<!-- ENDIF -->>1988</option>
+						<option value="1989" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1989' -->selected="selected"<!-- ENDIF -->>1989</option>
+						<option value="1990" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1990' -->selected="selected"<!-- ENDIF -->>1990</option>
+						<option value="1991" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1991' -->selected="selected"<!-- ENDIF -->>1991</option>
+						<option value="1992" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1992' -->selected="selected"<!-- ENDIF -->>1992</option>
+						<option value="1993" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1993' -->selected="selected"<!-- ENDIF -->>1993</option>
+						<option value="1994" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1994' -->selected="selected"<!-- ENDIF -->>1994</option>
+						<option value="1995" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1995' -->selected="selected"<!-- ENDIF -->>1995</option>
+						<option value="1996" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1996' -->selected="selected"<!-- ENDIF -->>1996</option>
+						<option value="1997" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1997' -->selected="selected"<!-- ENDIF -->>1997</option>
+						<option value="1998" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1998' -->selected="selected"<!-- ENDIF -->>1998</option>
+						<option value="1999" <!-- IF AD_ITEM_PRODUCTION_YEAR == '1999' -->selected="selected"<!-- ENDIF -->>1999</option>
+						<option value="2000" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2000' -->selected="selected"<!-- ENDIF -->>2000</option>
+						<option value="2001" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2001' -->selected="selected"<!-- ENDIF -->>2001</option>
+						<option value="2002" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2002' -->selected="selected"<!-- ENDIF -->>2002</option>
+						<option value="2003" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2003' -->selected="selected"<!-- ENDIF -->>2003</option>
+						<option value="2004" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2004' -->selected="selected"<!-- ENDIF -->>2004</option>
+						<option value="2005" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2005' -->selected="selected"<!-- ENDIF -->>2005</option>
+						<option value="2006" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2006' -->selected="selected"<!-- ENDIF -->>2006</option>
+						<option value="2007" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2007' -->selected="selected"<!-- ENDIF -->>2007</option>
+						<option value="2008" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2008' -->selected="selected"<!-- ENDIF -->>2008</option>
+						<option value="2009" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2009' -->selected="selected"<!-- ENDIF -->>2009</option>
+						<option value="2010" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2010' -->selected="selected"<!-- ENDIF -->>2010</option>
+						<option value="2011" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2011' -->selected="selected"<!-- ENDIF -->>2011</option>
+						<option value="2012" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2012' -->selected="selected"<!-- ENDIF -->>2012</option>
+						<option value="2013" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2013' -->selected="selected"<!-- ENDIF -->>2013</option>
+						<option value="2014" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2014' -->selected="selected"<!-- ENDIF -->>2014</option>
+						<option value="2015" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2015' -->selected="selected"<!-- ENDIF -->>2015</option>
+						<option value="2016" <!-- IF AD_ITEM_PRODUCTION_YEAR == '2016' -->selected="selected"<!-- ENDIF -->>2016</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_adquired_year">{L_AD_ITEM_ADQUIRED_YEAR}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_adquired_year" id="ad_item_adquired_year">
+						<option value="0"    <!-- IF AD_ITEM_ADQUIRED_YEAR == '0' -->selected="selected"<!-- ENDIF -->>{L_SELECT}</option>
+						<option value="1985" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1985' -->selected="selected"<!-- ENDIF -->>1985</option>
+						<option value="1986" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1986' -->selected="selected"<!-- ENDIF -->>1986</option>
+						<option value="1987" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1987' -->selected="selected"<!-- ENDIF -->>1987</option>
+						<option value="1988" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1988' -->selected="selected"<!-- ENDIF -->>1988</option>
+						<option value="1989" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1989' -->selected="selected"<!-- ENDIF -->>1989</option>
+						<option value="1990" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1990' -->selected="selected"<!-- ENDIF -->>1990</option>
+						<option value="1991" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1991' -->selected="selected"<!-- ENDIF -->>1991</option>
+						<option value="1992" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1992' -->selected="selected"<!-- ENDIF -->>1992</option>
+						<option value="1993" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1993' -->selected="selected"<!-- ENDIF -->>1993</option>
+						<option value="1994" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1994' -->selected="selected"<!-- ENDIF -->>1994</option>
+						<option value="1995" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1995' -->selected="selected"<!-- ENDIF -->>1995</option>
+						<option value="1996" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1996' -->selected="selected"<!-- ENDIF -->>1996</option>
+						<option value="1997" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1997' -->selected="selected"<!-- ENDIF -->>1997</option>
+						<option value="1998" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1998' -->selected="selected"<!-- ENDIF -->>1998</option>
+						<option value="1999" <!-- IF AD_ITEM_ADQUIRED_YEAR == '1999' -->selected="selected"<!-- ENDIF -->>1999</option>
+						<option value="2000" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2000' -->selected="selected"<!-- ENDIF -->>2000</option>
+						<option value="2001" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2001' -->selected="selected"<!-- ENDIF -->>2001</option>
+						<option value="2002" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2002' -->selected="selected"<!-- ENDIF -->>2002</option>
+						<option value="2003" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2003' -->selected="selected"<!-- ENDIF -->>2003</option>
+						<option value="2004" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2004' -->selected="selected"<!-- ENDIF -->>2004</option>
+						<option value="2005" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2005' -->selected="selected"<!-- ENDIF -->>2005</option>
+						<option value="2006" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2006' -->selected="selected"<!-- ENDIF -->>2006</option>
+						<option value="2007" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2007' -->selected="selected"<!-- ENDIF -->>2007</option>
+						<option value="2008" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2008' -->selected="selected"<!-- ENDIF -->>2008</option>
+						<option value="2009" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2009' -->selected="selected"<!-- ENDIF -->>2009</option>
+						<option value="2010" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2010' -->selected="selected"<!-- ENDIF -->>2010</option>
+						<option value="2011" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2011' -->selected="selected"<!-- ENDIF -->>2011</option>
+						<option value="2012" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2012' -->selected="selected"<!-- ENDIF -->>2012</option>
+						<option value="2013" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2013' -->selected="selected"<!-- ENDIF -->>2013</option>
+						<option value="2014" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2014' -->selected="selected"<!-- ENDIF -->>2014</option>
+						<option value="2015" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2015' -->selected="selected"<!-- ENDIF -->>2015</option>
+						<option value="2016" <!-- IF AD_ITEM_ADQUIRED_YEAR == '2016' -->selected="selected"<!-- ENDIF -->>2016</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_usable_width">{L_AD_ITEM_USABLE_WIDTH}{L_COLON}</label>
+			</dt>
+			<dd>
+				<input type="text" id="ad_item_usable_width" name="ad_item_usable_width" value="{AD_ITEM_USABLE_WIDTH}" />
+				<select name="ad_item_units_usable_width" id="ad_item_units_usable_width">
+					<option value="1" <!-- IF AD_ITEM_UNITS_USABLE_WIDTH == '1' -->selected="selected"<!-- ENDIF -->>{L_MILIMETRES}</option>
+					<option value="2" <!-- IF AD_ITEM_UNITS_USABLE_WIDTH == '2' -->selected="selected"<!-- ENDIF -->>{L_CENTIMETRES}</option>
+					<option value="3" <!-- IF AD_ITEM_UNITS_USABLE_WIDTH == '3' -->selected="selected"<!-- ENDIF -->>{L_METRES}</option>
+					<option value="4" <!-- IF AD_ITEM_UNITS_USABLE_WIDTH == '4' -->selected="selected"<!-- ENDIF -->>{L_INCHES}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_weight">{L_AD_ITEM_WEIGHT}{L_COLON}</label>
+			</dt>
+			<dd>
+				<input type="text" id="ad_item_weight" name="ad_item_weight" value="{AD_ITEM_WEIGHT}" />
+				<select name="ad_item_units_weight" id="ad_item_units_weight">
+					<option value="1" <!-- IF AD_ITEM_UNITS_WEIGHT == '1' -->selected="selected"<!-- ENDIF -->>{L_GRAMS}</option>
+					<option value="2" <!-- IF AD_ITEM_UNITS_WEIGHT == '2' -->selected="selected"<!-- ENDIF -->>{L_KILOGRAMS}</option>
+					<option value="3" <!-- IF AD_ITEM_UNITS_WEIGHT == '3' -->selected="selected"<!-- ENDIF -->>{L_TONS}</option>
+					<option value="4" <!-- IF AD_ITEM_UNITS_WEIGHT == '4' -->selected="selected"<!-- ENDIF -->>{L_POUNDS}</option>
+				</select>
+			</dd>
+		</dl>
+<script type="text/javascript">
+var country_id = '{AD_ITEM_COUNTRY_ID}';
+var state_id = '{AD_ITEM_STATE_ID}';
+var city_id = '{AD_ITEM_CITY_ID}';
+var url_countries_call = '{AJAX_COUNTRY_INFO}';
+var url_states_call = '{AJAX_STATE_INFO}';
+var url_cities_call = '{AJAX_CITY_INFO}';
+</script>
+		<dl class="maqart">
+			<dt>
+				<label for="location_country_id">{L_CARUM_COUNTRY}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_country_id" id="location_country_id"></select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="location_state_id">{L_CARUM_STATE}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_state_id" id="location_state_id"></select>
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="location_city_id">{L_CARUM_CITY}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_city_id" id="location_city_id"></select>&nbsp;<input type="text" name="ad_item_alt_city" id="location_alt_city" size="25" maxlength="100" value="{AD_ITEM_ALT_CITY}" />
+			</dd>
+		</dl>
+		<dl class="maqart">
+			<dt>
+				<label for="ad_item_shipment">{L_AD_ITEM_SHIPMENT}{L_COLON}</label>
+			</dt>
+			<dd>
+				<select name="ad_item_shipment" id="ad_item_shipment">
+					<option value="0" <!-- IF AD_ITEM_SHIPMENT == '0' -->selected="selected"<!-- ENDIF -->>{L_AGREEMENT}</option>
+					<option value="1" <!-- IF AD_ITEM_SHIPMENT == '1' -->selected="selected"<!-- ENDIF -->>{L_INCLUDED}</option>
+					<option value="2" <!-- IF AD_ITEM_SHIPMENT == '2' -->selected="selected"<!-- ENDIF -->>{L_EXCLUDED}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl class="machine">
+			<dt><label for="ad_item_sos">{L_AD_ITEM_SOS}{L_COLON}</label></dt>
+			<dd>
+				<select name="ad_item_sos">
+					<option value="0" <!-- IF AD_ITEM_SOS == '0' -->selected="selected"<!-- ENDIF -->>{L_NO}</option>
+					<option value="1" <!-- IF AD_ITEM_SOS == '1' -->selected="selected"<!-- ENDIF -->>{L_YES}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_booked_by">{L_AD_ITEM_BOOKED_BY}{L_COLON}</label></dt>
+			<dd><select name='ad_item_booked_by'>{S_USER_BOOK}</select></dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_booked_date">{L_AD_ITEM_BOOKED_DATE}{L_COLON}</label></dt>
+			<dd><input  type="text" name="ad_item_booked_date" id="ad_item_booked_date" size="8" maxlength="10" value="{AD_ITEM_BOOKED_DATE}" /><br />{L_AD_DATE_FORMAT}</dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<legend>{L_AD_IMAGES}</legend>
+		<script type="text/javascript" charset="utf-8">
+			var file_drop = "{L_FILE_DROP}";
+			var file_type_not_allowed = "{L_FILE_TYPE_NOT_ALLOWED}";
+			var change_image = "{L_CHANGE_IMAGE}";
+			var delete_image = "{L_DELETE_IMAGE}";
+		</script>
+		<input type="hidden" id="images_to_delete" name="images_to_delete" value="{IMAGES_TO_DELETE}" />
+		<dl>
+			<dt><label for="ad_item_image1">{L_AD_IMAGES}:</label></dt>
+			<dd>
+				<iframe name="i_ad_item_image_1" id="i_ad_item_image_1" src="{IFRAME}" width="400px" height="105px" frameborder="0" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;border:solid 1px transparent"></iframe>
+				<input type="hidden" id="ad_item_image_1" name="ad_item_image_1" value="{AD_ITEM_IMAGE_1}" />
+			</dd>
+			<dd>
+				<iframe name="i_ad_item_image_2" id="i_ad_item_image_2" src="{IFRAME}" width="400px" height="105px" frameborder="0" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;border:solid 1px transparent"></iframe>
+				<input type="hidden" id="ad_item_image_2" name="ad_item_image_2" value="{AD_ITEM_IMAGE_2}" />
+			</dd>
+			<dd>
+				<iframe name="i_ad_item_image_3" id="i_ad_item_image_3" src="{IFRAME}" width="400px" height="105px" frameborder="0" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;border:solid 1px transparent"></iframe>
+				<input type="hidden" id="ad_item_image_3" name="ad_item_image_3" value="{AD_ITEM_IMAGE_3}" />
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="ad_item_youtube">{L_AD_ITEM_YOUTUBE}{L_COLON}</label></dt>
+			<dd><input type="text" id="ad_item_youtube" name="ad_item_youtube" value="{AD_ITEM_YOUTUBE}" /></dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<legend>{L_AD_ASKS}</legend>
+		<table cellspacing="1" id="down">
+			<thead>
+				<tr>
+					<th>{L_ACP_ASKS_USER}</th>
+					<th>{L_ACP_ASKS_ASK}</th>
+					<th>{L_ACP_ASKS_ANSWER}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN asks -->
+					<tr<!-- IF asks.S_ROW_COUNT is even --> class="row1"<!-- ELSE --> class="row2"<!-- ENDIF -->>
+						<td>{asks.AD_ASK_USER}</td>
+						<td>{asks.AD_ASK_ASK}</td>
+						<td>{asks.AD_ASK_ANSWER}</td>
+					</tr>
+				<!-- END asks -->
+			</tbody>
+        </table>
+	</fieldset>
+	<fieldset>
+		<legend>{L_ACP_BIDS}</legend>
+		<table cellspacing="1" id="down">
+			<thead>
+				<tr>
+					<th>{L_ACP_BID_USER}</th>
+					<th>{L_ACP_BID_DATE}</th>
+					<th>{L_ACP_BID_PRICE}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN bids -->
+					<tr<!-- IF bids.S_ROW_COUNT is even --> class="row1"<!-- ELSE --> class="row2"<!-- ENDIF -->>
+						<td>{bids.AD_BID_USER}</td>
+						<td>{bids.AD_BID_DATE}</td>
+						<td>{bids.AD_BID_PRICE}</td>
+					</tr>
+				<!-- END bids -->
+			</tbody>
+        </table>
+	</fieldset>
+	<fieldset>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+<!-- INCLUDE overall_footer.html -->

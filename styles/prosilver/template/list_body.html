@@ -1,0 +1,295 @@
+<!-- INCLUDE overall_header.html -->
+<style type="text/css">
+.hand {
+	cursor: hand;
+	cursor:pointer;
+}
+
+.items{
+	float:left;
+	width:18%;
+	position:relative;
+	height:200px;
+}
+
+.items img{
+	height:50%;
+	width:100%;
+	position:relative;
+}
+</style>
+<style>
+	a:link, a:visited, a:hover, a:active {
+		text-decoration: none;
+	}
+	ol,ul{list-style:none}
+	img[width="1"][height="1"]{display:block}
+	@media screen and (min-width: 320px) {
+		#photo-grid{
+					width: 100%;
+					}
+		.item_s{
+					width: 320px;
+					padding:3px;
+					border:solid 1px transparent;
+					}
+		.item_c{
+					border-radius:4px;
+					padding:3px;
+					background: white;
+					border:solid 1px transparent;
+				}
+		.item_c:hover{border-color:#d5d5d5;box-shadow:0 0 4px 0 rgba(0,0,0,0.2)}
+		.item_info{
+					padding:3px 20px 3px 20px;
+					height: 140px;
+					border:solid 1px transparent;
+					}
+		.item_photo{
+					padding:3px;
+					text-align: center;
+					border:solid 1px transparent;
+					}
+		.item_photo_image{
+						max-width:100%;
+						max-height:100%;
+						height: auto;
+						width:auto;
+						border-radius:4px;
+					}
+		.item_action{
+					width:100%;
+					border-radius:4px;
+					background: #cadceb;
+					text-align:center;
+					font-size: 1.5em;
+					color: white;
+		}
+		.sell{color:red}
+		.buy{color:blue}
+		.catalog{color:magenta}
+		.item_name{
+					padding-top: 6px;
+					width:90%;
+					overflow:hidden;
+					white-space:nowrap;
+					text-overflow: ellipsis;
+		}
+		.price{
+					height: 35px;
+					border-radius:4px;
+					background: lightgrey;
+					text-align:center;
+					font-size: 1.5em;
+					color: white;
+		}
+		.price_text{
+					 line-height: 30px;
+		}
+	}
+	@media screen and (min-width: 768px) {
+		.item_s{
+					width: 49%;
+					float:left;
+					}
+		.item_photo{
+						
+					}
+		.item_photo_image{
+						width: 310px;
+						height: 232px;
+					}
+	}
+	@media screen and (min-width: 960px) {
+		.item_s{
+					width: 32%;
+					}
+		.item_photo{
+					
+					}
+		.item_photo_image{
+						width: 310px;
+						height: 232px;
+					}
+	}
+	.gridphotos.photos-on .property-card{height:408px}
+	.property-card-list_item{float:left;width:33.33333%;position:relative;cursor:pointer}
+	.property-card-list_item--microsite{float:left;width:33.33333%;position:relative;cursor:pointer}
+</style>
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="navbar" style="text-align: center">
+			<span class="corners-top"><span></span></span>
+			<span style="line-height:40px;font-family: 'Trebuchet MS', Helvetica, Arial, Sans-serif;font-size: 2.2em;font-weight: bold;text-decoration: none;color: #105289;vertical-align: baseline;">
+				{L_MARKET_TITLE}
+			</span>
+			<span class="corners-bottom"><span></span></span>
+		</div>
+		<br />
+		<!-- ************************************************************************************************************************************* -->                
+		<div class="content">
+			<div>{L_MARKET_SELECT_CATEGORY}</div>
+			<form id="categoriesForm" name="categoriesForm" action="{U_ACTION}" method="GET">
+				<fieldset>
+					<select name="category_selected" onchange="categoriesForm.submit()">{S_CATEGORY_OPTIONS}</select>
+					
+					<a href="{MARKET_REQUEST}" title="{L_MARKET_REQUEST}" style="padding-left: 20px">{L_MARKET_CREATE_MARKET}</a>
+				</fieldset>
+			</form>
+		</div>
+		<!-- IF .pagination -->
+			<div class="pagination top-pagination">
+				<!-- INCLUDE pagination.html -->
+			</div>
+		<!-- ENDIF -->
+		
+		<div style="clear:both;"></div>
+
+		<div id="photo-grid" class="photo-grid">
+			<ul>
+				<!-- BEGIN ads -->
+				<li>
+					<div class="item_s">
+						<div class="item_c">
+							<a	id="item_{ads.AD_ID}"
+								class=""
+								href="{ads.AD_ITEM_LINK}">
+									<div class="item_photo">
+										<img	class="item_photo_image"
+												src="/images/market/ads/{ads.AD_ITEM_IMAGE}"
+												id="image_{ads.AD_ID}"
+												alt="{ads.AD_ITEM_NAME}"
+												onerror="this.src='data:image/png;base64,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'"
+										>
+									</div>
+									<div class="item_info">
+										<div class="item_action <!-- IF ads.AD_ITEM_ACTION == "0" -->sell<!-- ENDIF --><!-- IF ads.AD_ITEM_ACTION == "1" -->buy<!-- ENDIF --><!-- IF ads.AD_ITEM_ACTION == "2" -->catalog<!-- ENDIF -->">
+											<!-- IF ads.AD_ITEM_ACTION == "0" -->
+												<!-- IF ads.AD_METHOD == "0" -->
+													{L_SELL}
+												<!-- ELSE -->
+													{L_AD_IS_BID}
+												<!-- ENDIF -->
+											<!-- ENDIF -->
+											<!-- IF ads.AD_ITEM_ACTION == "1" -->{L_BUY}<!-- ENDIF -->
+											<!-- IF ads.AD_ITEM_ACTION == "2" -->{L_CATALOG}<!-- ENDIF -->
+										</div>
+										<div class="subTitleText" style="height:85px;background: white;">
+											<div class="item_name">
+												{ads.AD_ITEM_NAME}
+											</div>
+											<!-- IF ads.AD_ITEM_IS_MINBID -->
+												<div class="subTitleText">{L_AD_ITEM_LAST_BID}:</div>
+												<!-- IF ads.ACTUAL_PRICE -->
+													{ads.ACTUAL_PRICE}&nbsp;&euro;
+												<!-- ELSE -->
+													<div>{L_AD_ITEM_NO_BIDS}</div>
+												<!-- ENDIF -->
+											<!-- ELSE -->
+												<div class="subTitleText">{L_AD_ITEM_BUY_NOW_PRICE}:
+													<!-- IF not ads.HIDE_PRICE and ads.PRICE != "0" -->
+														{ads.BUY_NOW_PRICE}&nbsp;&euro;
+														{L_AD_PRICE_HIDDEN}
+													<!-- ENDIF -->
+												</div>
+											<!-- ENDIF -->
+										</div>
+										<!-- IF ads.AD_METHOD == "0" -->
+											<!-- Ask price -->
+											<div class="price">
+												<div class="price_text">
+													<!-- IF not ads.HIDE_PRICE and ads.PRICE != "0" -->
+														<strong>{ads.AD_ITEM_PRICE}&nbsp;&euro;</strong>
+													<!-- ELSE -->
+														{L_AD_PRICE_HIDDEN}
+													<!-- ENDIF -->
+												</div>
+											</div>
+										<!-- ELSE -->
+											<!-- Biding / Make offer -->
+											<div class="price">
+												<div class="price_text">
+													<!-- IF not ads.HIDE_PRICE and ads.PRICE != "0" -->
+														<strong>{ads.BUY_NOW_PRICE}&nbsp;&euro;</strong>
+													<!-- ELSE -->
+														{L_AD_PRICE_HIDDEN}
+													<!-- ENDIF -->
+												</div>
+											</div>
+										
+										<!-- ENDIF -->
+									</div>
+							</a>
+						</div>
+					</div>
+				<!-- END ads -->
+				</li>
+			</ul>
+		</div>
+		<div style="clear:both;"></div><br />
+<div id="main-content" class="photo-grid">
+	<div id="photo-content">
+		<div id="ctl00_content1_gridphotos_gridPhoto" class="gridphotos clearfix property-card-list">
+			<ul id="ctl00_content1_gridphotos_listAds" data-id="cardList" class="listPhotos">
+				<!-- BEGIN ads -->
+					<li id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_itemPhoto" data-istopad="1" data-url="http://www.fotocasa.es/vivienda/paterna/aire-acondicionado-terraza-zona-comunitaria-ascensor-piscina-llicso-137595427?opi=140&amp;tti=1&amp;pagination=1&amp;RowGrid=1&amp;tta=8&amp;tp=1" data-radius="0" data-grid="1" class="property-card-list_item" data-position="1" data-isradial="False" data-promotionid="0" data-adid="137595427" data="viewDetail">
+						<div id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_div_ItemPhoto__137595427__0__1" class="itemPhoto" ai="137595427-2"
+								style="padding:3px;border:solid 1px black">
+							<div class="o-card property-card" style="padding:3px;border:solid 1px blue">
+								<div class="o-card_media property-media" style="padding:3px;border:solid 1px red">
+									<img src="/images/market/ads/{ads.AD_ITEM_IMAGE}" id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_image" data-istopad="1" data-radius="0" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADAQMAAACOOjyFAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjAAMAAAYAAegKKqQAAAAASUVORK5CYII='" data-grid="1" data-url="http://www.fotocasa.es/vivienda/paterna/aire-acondicionado-terraza-zona-comunitaria-ascensor-piscina-llicso-137595427?opi=140&amp;tti=1&amp;pagination=1&amp;RowGrid=1&amp;dpi=3&amp;tta=8&amp;tp=1" data-position="1" data-isradial="False" data-promotionid="0" data="viewDetail" data-adid="137595427" alt="Dúplex en Venta en Llicso / Valterna" height="174" width="232">
+								</div>
+								<div data-id="property-information" class="o-card_content property-information" style="padding:3px;border:solid 1px green">
+									<a id="lnkMicrosite" class="property-card_logo" data-microsite="true" alt="HABITALE VALTERNA" query="?opi=1" href="http://www.fotocasa.es/inmobiliarias/habitale-valterna-9202752665367" style="z-index:1;position:relative;"><img id="imgLogoMicrosite" alt="HABITALE VALTERNA" src="Comprar%20D%C3%BAplex%20Espa%C3%B1a%20_%20fotocasa_files/372286.jpg" style="width:88px;z-index:1;position:relative;"></a>
+									<div>
+										<span class="property-card-list_item_date">
+											AHORA
+										</span>
+									</div>
+									<a href="http://www.fotocasa.es/vivienda/paterna/aire-acondicionado-terraza-zona-comunitaria-ascensor-piscina-llicso-137595427?opi=140&amp;tti=1&amp;pagination=1&amp;RowGrid=1&amp;tta=8&amp;tp=1" id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_lnkDetail" data-istopad="1" data-url="http://www.fotocasa.es/vivienda/paterna/aire-acondicionado-terraza-zona-comunitaria-ascensor-piscina-llicso-137595427?opi=140&amp;tti=1&amp;pagination=1&amp;RowGrid=1&amp;tta=8&amp;tp=1" data-radius="0" propertyid="137595427" data-grid="1" class="property-location" data-position="1" style="position:relative;z-index:1;display:block;" data-isradial="False" data-promotionid="0" data-adid="137595427" data="viewDetail">
+										<b><span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_street" class="location">Llicso</span></b><br>
+										<span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_ubication">Valterna</span>
+									</a>
+									<span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_info">Dúplex, 3 hab., 115m²</span>
+									<div data-id="property-card_price">
+										<span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_lblPriceContainer">
+											<span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_price" class="property-card_price price-container">156.100 €</span>
+											<span id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_low_price" style="display:none" show="false"></span>
+										</span>
+									</div>
+									<div class="property-card_below-average">
+									</div>
+									<div class="propose-price-container">
+									</div>
+									<div class="helper-elements" data-id="propertyFavorite">
+										<div id="ctl00_content1_gridphotos_rptGridPhotos_ctl00_starFavorite" class="helper-element" style="position:relative;z-index:1;display:block;">
+											<div id="Ad_137595427_1_0" class="cFavorite" onclick='FTC.Xiti("click_favoritos_utilities","enlace");' data-action="want" type="favicon" adid="137595427" pid="0" ttid="1" ppi="0" bid="2" iddiv="Ad_137595427_1_0" idtip="flotDivAd_137595427_1_0" ui="0">
+											</div>
+										</div>
+									</div>
+									<a id="lnkContact" class="lnk_resultsIR" language="es-es" transactiontypeid="1" data-contact="true" onclick="FTC.clickbyLevel('Contacto_TV::Parrilla_Fotos::Contacto_parrilla_logo','2', 'click')" name="modal" typemodal="2" adid="137595427" paymentperiodicityid="0" data-tracking="true" promotionid="0" href="http://www.fotocasa.es/Search/Usercontrol/#" style="z-index:1;position:relative;">
+										Contactar
+									</a>
+									<img id="imgPhoneTracked" class="property-card_phone" data-tracking="true" src="Comprar%20D%C3%BAplex%20Espa%C3%B1a%20_%20fotocasa_files/PhoneImageText_023.png">
+								</div>
+							</div>
+						</div>
+					</li>
+				<!-- END ads -->
+			</ul>
+		</div>
+	</div>
+</div>
+		
+		<div style="clear:both;"></div>
+		
+		<!-- IF .pagination -->
+			<div class="pagination">
+				<!-- INCLUDE pagination.html -->
+			</div>
+		<!-- ENDIF --> 
+	</div>
+</div>
+<!-- INCLUDE overall_footer.html -->

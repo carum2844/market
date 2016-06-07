@@ -1,0 +1,46 @@
+services:
+    carum.market.listener:
+        class: carum\market\event\main_listener
+        arguments:
+            - '@auth'
+            - '@cache'
+            - '@config'
+            - '@controller.helper'
+            - '@dbal.conn'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@ext.manager'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '%core.table_prefix%'
+        tags:
+            - { name: event.listener }
+    carum.market.main.controller:
+        class: carum\market\controller\main_controller
+        arguments:
+            - '@config'
+            - '@auth'
+            - '@dbal.conn'
+            - '@pagination'
+            - '@controller.helper'
+            - '@request'
+            - '@template'
+            - '@service_container'
+            - '@user'
+            - '@cache'
+            - '@ext.manager'
+            - '%core.root_path%'
+            - '%core.table_prefix%' 
+    carum.market.includes.php.marketfunctions:
+        class: carum\market\includes\marketfunctions
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@cache'
+            - '@dbal.conn'
+            - '@template'
+            - '@user'
+            - '%core.table_prefix%'
+            - '@ext.manager'
+            - '@path_helper'

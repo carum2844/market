@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./../../assets/javascript/jquery.min.js?assets_version=86"></script>
+<!-- File Upload -->
+<script type="text/javascript" src="./../../ext/carum/carum/includes/js/jquery.knob.js"></script>
+<script type="text/javascript" src="./../../ext/carum/carum/includes/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="./../../ext/carum/carum/includes/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="./../../ext/carum/carum/includes/js/jquery.fileupload.js"></script>
+<!-- Our main JS file -->
+<script type="text/javascript" src="./../../ext/carum/carum/includes/js/upload.file.js"></script>
+
+</head>
+<body>
+<div style='position: absolute;top: 0px;left: 0px; height:100px; border:solid 1px transparent'>
+	<form id="upload" method="post" action="/ext/carum/carum/includes/php/upload_file.php" enctype="multipart/form-data">
+		<input type="hidden" name="image_width" value="310">
+		<input type="hidden" name="image_heigh" value="232">
+		<input type="hidden" name="thumb_width" value="100">
+		<input type="hidden" name="thumb_heigh" value="100">
+		<div>
+			<div class="form-file-attach">
+				<div	id="drop"
+						class=""
+						style='	position: absolute;
+								top: 0px;
+								left: 0px;
+								width: 100px;
+								height: 100px;
+								padding: 0px 0px 0px 0px;
+								border: 1px dashed #ccc;
+								display:none;
+								overflow: hidden;'>
+					<div id="background" style='position: absolute;top: 25px;left: 0px;bottom: 0;right: 0;z-index: -1;overflow: hidden;text-align:center;color: #105289;'></div>
+					<input	class="form-control form-file"
+							id="edit-ts-form-attach"
+							name="files_upl"
+							size="22"
+							type="file"
+							style='	position: relative;
+									top: 0px;
+									left: 0px;
+									margin: 0;
+									padding: 0;
+									height: 100px;
+									width: 100px;
+									display: block;
+									opacity: 0;
+									filter: alpha(opacity=0);
+									cursor: pointer;
+									z-index: 1;'>
+				</div>
+				<div	id="progress"
+						class=""
+						style='	position: absolute;
+								top: 0px;
+								left: 0px;
+								width: 100px;
+								height: 100px;
+								padding: 0px 0px 0px 0px;
+								border: 1px dashed #ccc;
+								display:none;
+								overflow: hidden;'>
+								<p style=''></p>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div 	id="show-file-attached"
+		style='	position: absolute;
+				top: 0px;
+				left: 102px;
+				width:100px;
+				height:100px;
+				border:solid 1px transparent'></div>
+<div 	id="show-file-options"
+		style='	position: absolute;
+				top: 0px;
+				left: 204px;
+				width:150px;
+				height: 60px;
+				padding: 20px 0px 0px 10px;
+				border:solid 1px transparent;
+				font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+				font-size: 0.8em;
+				color: #425067;'>
+					<span id='change_image' style='cursor:pointer'></span><br /><br />
+					<span id='delete_image' style='cursor:pointer'></span>
+</div>
+</body>
+</html>
